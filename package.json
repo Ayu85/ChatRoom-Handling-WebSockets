@@ -1,0 +1,25 @@
+{
+  "name": "chatroom",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsc -b && node ./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ayu85/ChatRoom-Handling-WebSockets.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Ayu85/ChatRoom-Handling-WebSockets/issues"
+  },
+  "homepage": "https://github.com/Ayu85/ChatRoom-Handling-WebSockets#readme",
+  "description": "",
+  "dependencies": {
+    "@types/ws": "^8.5.13",
+    "ws": "^8.18.0"
+  }
+}
