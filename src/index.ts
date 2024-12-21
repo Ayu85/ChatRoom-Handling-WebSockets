@@ -16,14 +16,26 @@ let allUsers: User[] = []
 server.on('connection', (socket) => {
     allUsers.push({ socket, roomId: "sad" })
     socket.on('message', (e) => {
-        console.log(allUsers.length);
-        allUsers.forEach((user) => {
-            socket.send(e.toString())
-        })
-        socket.on('close', () => {
-            allUsers = allUsers.filter((user) => user != socket)
-        })
-
+        // we will rec. the msg as a string , so parse that to object to play with it
+        const jsonMsg = JSON.parse(e.toString());
+        // if user wants to join
+        if (jsonMsg.type === 'join') {
+            allUsers.push({
+                socket: socket,
+                roomId: jsonMsg.payload.roomId
+            })
+        }
+        // if user wants to send message
+        // it means user has already joined a room with roomId..456825
+        if (jsonMsg.type === 'message') {
+            // to get the current user's room id
+            const currentUserRoomId = allUsers.find((user) => user.socket == socket)?.roomId
+            // now send that message to each user present in this (currentUserRoomID) 
+            allUsers.forEach((user) => {
+                if (user.roomId === currentUserRoomId)
+                    socket.send(jsonMsg.payload)
+            })
+        }
     })
 
 })
