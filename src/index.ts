@@ -1,17 +1,27 @@
 import { WebSocketServer, WebSocket } from "ws";
 
 const server = new WebSocketServer({ port: 8000 })
-let users: WebSocket[] = []
+interface User {
+    socket: WebSocket;
+    roomId: string
+}
+let allUsers: User[] = []
+
+// ****sample structure****
+// allUsers:[
+//     {socket:socket1,roomId:'4545'},
+//     {socket:socket2,roomId:'5345'},
+//     {socket:socket3,roomId:'4545'},
+// ]
 server.on('connection', (socket) => {
-    users.push(socket)
-    socket.send("connection success")
+    allUsers.push({ socket, roomId: "sad" })
     socket.on('message', (e) => {
-        console.log(users.length);
-        users.forEach((user) => {
-            user.send(e.toString())
+        console.log(allUsers.length);
+        allUsers.forEach((user) => {
+            socket.send(e.toString())
         })
         socket.on('close', () => {
-            users = users.filter((user) => user != socket)            
+            allUsers = allUsers.filter((user) => user != socket)
         })
 
     })
