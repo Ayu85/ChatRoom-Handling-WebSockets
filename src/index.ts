@@ -9,10 +9,7 @@ server.on('connection', (socket) => {
         users.forEach((user) => {
             user.send(e.toString())
         })
-        // for (let i = 0; i < users.length; i++) {
-        //     let user = users[i]
-        //     user.send(e.toString())
-        // }
+
     })
 
 })
