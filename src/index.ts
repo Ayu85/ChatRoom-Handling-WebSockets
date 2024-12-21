@@ -33,7 +33,7 @@ server.on('connection', (socket) => {
             // now send that message to each user present in this (currentUserRoomID) 
             allUsers.forEach((user) => {
                 if (user.roomId === currentUserRoomId)
-                    socket.send(jsonMsg.payload)
+                    user.socket.send(jsonMsg.payload)
             })
         }
     })
